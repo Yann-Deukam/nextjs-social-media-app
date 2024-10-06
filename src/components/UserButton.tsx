@@ -6,14 +6,31 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import UseAvatar from "./UseAvatar";
-import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import {
+  DropdownMenuSeparator,
+  DropdownMenuSubContent,
+} from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
-import { LogOutIcon, User2Icon, UserIcon } from "lucide-react";
+import {
+  Check,
+  LogOutIcon,
+  Monitor,
+  Moon,
+  MoonIcon,
+  Sun,
+  SunIcon,
+  User2Icon,
+  UserIcon,
+} from "lucide-react";
 import { logout } from "@/app/(auth)/action";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 interface UserButtonProps {
   className?: string;
@@ -21,6 +38,7 @@ interface UserButtonProps {
 
 const UserButton = ({ className }: UserButtonProps) => {
   const { user } = useSession();
+  const { theme, setTheme } = useTheme();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,6 +55,31 @@ const UserButton = ({ className }: UserButtonProps) => {
             Profile
           </DropdownMenuItem>
         </Link>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <Monitor className="mr-2 size-4" />
+            Theme
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onClick={() => setTheme("system")}>
+                <Monitor className="mr-2 size-4" />
+                System default
+                {theme === "system" && <Check className="ms-2 size-4" />}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <SunIcon className="mr-2 size-4" />
+                Light
+                {theme === "light" && <Check className="ms-2 size-4" />}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <MoonIcon className="mr-2 size-4" />
+                Dark
+                {theme === "dark" && <Check className="ms-2 size-4" />}
+              </DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
         <DropdownMenuItem
           onClick={() => {
             logout();
