@@ -63,7 +63,7 @@ export const validateRequest = cache(
           sessionCookie.attributes
         );
       }
-      if (result.session) {
+      if (!result.session) {
         const sessionCookie = lucia.createBlankSessionCookie();
         cookies().set(
           sessionCookie.name,
