@@ -1,4 +1,4 @@
-import { PostData } from "@/lib/tyoes";
+import { PostData } from "@/lib/types";
 import Link from "next/link";
 import React from "react";
 import UseAvatar from "../UseAvatar";
