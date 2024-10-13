@@ -1,18 +1,17 @@
 import { PostData } from "@/lib/types";
-import Link from "next/link";
-import React from "react";
-import UseAvatar from "../UseAvatar";
 import { formatRelativeDate } from "@/lib/utils";
+import Link from "next/link";
+import UseAvatar from "../UseAvatar";
 
-interface postProps {
+interface PostProps {
   post: PostData;
 }
 
-const Post = ({ post }: postProps) => {
+export default function Post({ post }: PostProps) {
   return (
-    <article className="space-y-3 rounded-lg bg-card p-5">
+    <article className="space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex flex-wrap gap-3">
-        <Link href={`/users/$post.user.username`}>
+        <Link href={`/users/${post.user.username}`}>
           <UseAvatar avatarUrl={post.user.avatarUrl} />
         </Link>
         <div>
@@ -23,8 +22,8 @@ const Post = ({ post }: postProps) => {
             {post.user.displayName}
           </Link>
           <Link
-            className="block text-sm text-muted-foreground hover:underline"
             href={`/posts/${post.id}`}
+            className="block text-sm text-muted-foreground hover:underline"
           >
             {formatRelativeDate(post.createdAt)}
           </Link>
@@ -33,6 +32,4 @@ const Post = ({ post }: postProps) => {
       <div className="whitespace-pre-line break-words">{post.content}</div>
     </article>
   );
-};
-
-export default Post;
+}
