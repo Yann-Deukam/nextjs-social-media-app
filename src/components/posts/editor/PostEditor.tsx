@@ -1,15 +1,13 @@
 "use client";
 
 import { useSession } from "@/app/(main)/SessionProvider";
-import { Button } from "@/components/ui/button";
+import LoadingButton from "@/components/LoadingButton";
 import UseAvatar from "@/components/UseAvatar";
 import Placeholder from "@tiptap/extension-placeholder";
 import { EditorContent, useEditor } from "@tiptap/react";
-import { StarterKit } from "@tiptap/starter-kit";
-import { submitPost } from "./action";
-import "./styles.css";
+import StarterKit from "@tiptap/starter-kit";
 import { useSubmitPostMutation } from "./mutations";
-import LoadingButton from "@/components/LoadingButton";
+import "./styles.css";
 
 export default function PostEditor() {
   const { user } = useSession();
@@ -34,21 +32,20 @@ export default function PostEditor() {
     }) || "";
 
   function onSubmit() {
-    mutation.mutate("input", {
+    mutation.mutate(input, {
       onSuccess: () => {
         editor?.commands.clearContent();
       },
     });
-    editor?.commands.clearContent();
   }
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg bg-card p-5 shadow-sm">
+    <div className="flex flex-col gap-5 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex gap-5">
         <UseAvatar avatarUrl={user.avatarUrl} className="hidden sm:inline" />
         <EditorContent
           editor={editor}
-          className="max-h-[20rem] w-full overflow-y-auto rounded-lg bg-background px-5 py-3 outline-none focus:outline-none focus:ring-0 focus:border-transparent"
+          className="max-h-[20rem] w-full overflow-y-auto rounded-2xl bg-background px-5 py-3"
         />
       </div>
       <div className="flex justify-end">

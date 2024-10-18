@@ -1,5 +1,5 @@
 import { useToast } from "@/hooks/use-toast";
-import { PostsPage } from "@/lib/types";
+import { PostData, PostsPage } from "@/lib/types";
 import {
   InfiniteData,
   QueryFilters,
